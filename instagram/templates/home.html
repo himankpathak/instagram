@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <h1>Instagram</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if not user.is_authenticated %}
+        <h1>You're logged in.</h1>
+    {% else %}
+        <h1>You're logged out</h1>
+    {% endif %}
+{% endblock %}
