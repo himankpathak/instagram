@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if not user.is_authenticated %}
-        <h1>You're logged in.</h1>
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
     {% else %}
-        <h1>You're logged out</h1>
+        <p>Welcome, new user. Please log in.</p>
     {% endif %}
 {% endblock %}
