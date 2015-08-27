@@ -1,7 +1,9 @@
 from __future__ import absolute_import
 
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 
@@ -29,3 +31,9 @@ class LoginView(generic.FormView):
             return super(LoginView, self).form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'You\'ve been logged out. Come back soon!')
+    return HttpResponseRedirect(reverse_lazy('home'))
