@@ -1,7 +1,8 @@
-from __future__ import absolute_import
-
 from django.views import generic
 
+from braces import views
 
-class HomePageView(generic.TemplateView):
+
+class HomePageView(views.AnonymousRequiredMixin,
+                   generic.TemplateView):
     template_name = 'home.html'
