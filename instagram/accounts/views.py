@@ -13,18 +13,28 @@ from braces import views
 from .forms import SignUpForm, LoginForm
 
 
-class SignUpView(views.AnonymousRequiredMixin,
-                 views.FormValidMessageMixin,
-                 generic.CreateView):
+class ProfileView(
+        generic.TemplateView
+):
+    template_name = 'accounts/profile.html'
+
+
+class SignUpView(
+        views.AnonymousRequiredMixin,
+        views.FormValidMessageMixin,
+        generic.CreateView
+):
     form_class = SignUpForm
     form_valid_message = 'Thanks for signing up, go ahead and login.'
     model = User
     template_name = 'accounts/signup.html'
 
 
-class LoginView(views.AnonymousRequiredMixin,
-                views.FormValidMessageMixin,
-                generic.FormView):
+class LoginView(
+        views.AnonymousRequiredMixin,
+        views.FormValidMessageMixin,
+        generic.FormView
+):
     form_class = LoginForm
     form_valid_message = 'You\'re logged in now.'
     success_url = reverse_lazy('home')
