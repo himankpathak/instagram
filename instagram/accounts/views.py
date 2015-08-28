@@ -14,6 +14,7 @@ from .forms import SignUpForm, LoginForm
 
 
 class ProfileView(
+        views.LoginRequiredMixin,
         generic.TemplateView
 ):
     template_name = 'accounts/profile.html'
@@ -27,6 +28,7 @@ class SignUpView(
     form_class = SignUpForm
     form_valid_message = 'Thanks for signing up, go ahead and login.'
     model = User
+    success_url = reverse_lazy('accounts:login')
     template_name = 'accounts/signup.html'
 
 

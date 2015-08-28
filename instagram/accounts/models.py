@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
+    def create_user(self, username, email, password):
         if not email:
             raise ValueError('Users must have an email address')
 
@@ -33,7 +33,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(
-        verbose_name='email addres',
+        verbose_name='email address',
         max_length=255,
         unique=True,
     )
