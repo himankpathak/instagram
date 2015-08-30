@@ -12,7 +12,7 @@ class ViewPost(
         generic.DetailView
 ):
     model = Post
-    template_name = 'post/view.html'
+    template_name = 'posts/view.html'
     context_object_name = 'post'
 
     def get_queryset(self):
