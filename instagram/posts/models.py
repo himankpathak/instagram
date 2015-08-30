@@ -17,7 +17,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, related_name='post')
     slug = models.SlugField(unique=True, max_length=10, default=generate_id)
     photo = models.FileField(upload_to='posts_photo')
-    caption = models.CharField(max_length=50)
+    caption = models.CharField(max_length=50, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
