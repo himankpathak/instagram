@@ -1,0 +1,71 @@
+[
+    {
+        "model": "posts.Post",
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "photo": "/media/posts_photo/4JeFwjsd7M.jpg",
+            "slug": "4JeFwjsd7M",
+            "date_created": "2015-08-30T10:30:00+00:00",
+            "date_updated": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "posts.Post",
+        "pk": 2,
+        "fields": {
+            "author": 4,
+            "photo": "/media/posts_photo/w8HOnDYHzj.jpg",
+            "caption": "I am gerald.",
+            "slug": "w8HOnDYHzj",
+            "date_created": "2015-08-30T10:30:00+00:00",
+            "date_updated": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "posts.Post",
+        "pk": 3,
+        "fields": {
+            "author": 6,
+            "photo": "/media/posts_photo/6Qgp6NjFoI.jpg",
+            "slug": "6Qgp6NjFoI",
+            "date_created": "2015-08-30T10:30:00+00:00",
+            "date_updated": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "posts.Post",
+        "pk": 4,
+        "fields": {
+            "author": 2,
+            "photo": "/media/posts_photo/EYooBzxaxa.jpg",
+            "caption": "I am noel.",
+            "slug": "EYooBzxaxa",
+            "date_created": "2015-08-30T10:30:00+00:00",
+            "date_updated": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "posts.Post",
+        "pk": 5,
+        "fields": {
+            "author": 5,
+            "photo": "/media/posts_photo/V92QjYoyto.jpg",
+            "slug": "V92QjYoyto",
+            "date_created": "2015-08-30T10:30:00+00:00",
+            "date_updated": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "posts.Post",
+        "pk": 6,
+        "fields": {
+            "author": 7,
+            "photo": "/media/posts_photo/IwLasA0g5d.jpg",
+            "caption": "I am reyz.",
+            "slug": "IwLasA0g5d",
+            "date_created": "2015-08-30T10:30:00+00:00",
+            "date_updated": "2015-08-30T10:30:00+00:00"
+        }
+    }
+]
