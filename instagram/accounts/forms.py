@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import (
+    AuthenticationForm, ReadOnlyPasswordHashField)
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
