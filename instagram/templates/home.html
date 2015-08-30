@@ -2,7 +2,18 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+        <h1>wall</h1>
+        {% for post in object_list %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>
+                </div>
+                <div class="panel-body">
+                    <img src="{{ post.photo.url }}" alt="{{ post.caption }}">
+                    <p>{{ post.caption }}</p>
+                </div>
+            </div>
+        {% endfor %}
     {% else %}
         <p>Welcome, new user. Please log in.</p>
     {% endif %}
