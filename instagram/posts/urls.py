@@ -6,5 +6,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'(?P<slug>[\w\-]{10})/$', views.ViewPost.as_view(), name='post_view'),
+    url(r'(?P<slug>[\w\-]{10})/$', views.ViewPost.as_view(), name='view'),
 ]
