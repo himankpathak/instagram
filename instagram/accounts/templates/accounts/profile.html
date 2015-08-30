@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>profile</h1>
+    <h1>@{{ user.username }}</h1>
+    {% for post in object_list %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>
+            </div>
+            <div class="panel-body">
+                <img src="{{ post.photo.url }}" alt="{{ post.caption }}">
+                <p>{{ post.caption }}</p>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

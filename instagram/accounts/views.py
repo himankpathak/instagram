@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -9,15 +8,25 @@ from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 
 from braces import views
+from posts.models import Post
 
+from .models import User
 from .forms import SignUpForm, LoginForm
 
 
 class ProfileView(
         views.LoginRequiredMixin,
-        generic.TemplateView
+        generic.ListView
 ):
+    model = Post
     template_name = 'accounts/profile.html'
+
+    def get_context_data(self):
+        context = super(ProfileView, self).get_context_data()
+        username = self.kwargs['username']
+        context['object_list'] = Post.objects.filter(author__username=username)
+        context['user'] = User.objects.get(username=username)
+        return context
 
 
 class SignUpView(
