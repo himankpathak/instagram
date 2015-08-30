@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 from django.views import generic
+from django.core.urlresolvers import reverse_lazy
 
 from braces import views
 
@@ -43,3 +44,12 @@ class UpdatePostView(
     model = Post
     form_class = PostForm
     template_name = 'posts/form.html'
+
+
+class DeletePostView(
+        views.LoginRequiredMixin,
+        generic.DeleteView
+):
+    model = Post
+    success_url = reverse_lazy('home')
+    template_name = 'posts/delete.html'

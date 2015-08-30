@@ -13,4 +13,9 @@ urlpatterns = [
         views.UpdatePostView.as_view(),
         name='update'
     ),
+    url(
+        r'(?P<slug>[\w\-]{10})/delete/$',
+        views.DeletePostView.as_view(),
+        name='delete'
+    ),
 ]
