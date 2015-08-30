@@ -34,3 +34,12 @@ class CreatePostView(
         self.object.author = self.request.user
         self.object.save()
         return super(CreatePostView, self).form_valid(form)
+
+
+class UpdatePostView(
+        views.LoginRequiredMixin,
+        generic.UpdateView
+):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/form.html'
