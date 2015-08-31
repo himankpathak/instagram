@@ -12,7 +12,7 @@ from braces import views
 from posts.models import Post
 
 from .models import User, Connection
-from .forms import SignUpForm, LoginForm
+from .forms import AccountForm, LoginForm
 
 
 class ProfileView(
@@ -39,6 +39,15 @@ class ProfileView(
         context['user'] = User.objects.get(id=uid)
 
         return context
+
+
+class UpdateAccountView(
+        views.LoginRequiredMixin,
+        generic.UpdateView
+):
+    model = User
+    form_class = AccountForm
+    template_name = 'accounts/account_form.html'
 
 
 class FollowersListView(
@@ -82,11 +91,11 @@ class SignUpView(
         views.FormValidMessageMixin,
         generic.CreateView
 ):
-    form_class = SignUpForm
+    form_class = AccountForm
     form_valid_message = 'Thanks for signing up, go ahead and login.'
     model = User
     success_url = reverse_lazy('accounts:login')
-    template_name = 'accounts/signup.html'
+    template_name = 'accounts/account_form.html'
 
 
 class LoginView(
