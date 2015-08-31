@@ -72,3 +72,15 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class Connection(models.Model):
+    follower = models.ForeignKey(User, related_name='follower')
+    following = models.ForeignKey(User, related_name='following')
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def get_follower(self):
+        return self.follower.username
+
+    def get_following(self):
+        return self.following.username

@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>@{{ user.username }}</h1>
+    <h1>@{{ username }}</h1>
+    {% if user.username == username %}
+        <a href="#" class="btn btn-success">Edit profile</a>
+    {% elif connected %}
+        <a href="#" class="btn btn-success">Unfollow</a>
+    {% else  %}
+        <a href="#" class="btn btn-primary">Follow</a>
+    {% endif %}
     {% for post in object_list %}
         <div class="panel panel-default">
             <div class="panel-heading">
