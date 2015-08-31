@@ -9,8 +9,9 @@
     {% else  %}
         <a href="#" class="btn btn-primary">Follow</a>
     {% endif %}
-    following: {{ following }}
-    follower: {{ follower }}
+    <a href="{% url 'accounts:followers' username %}">followers: {{ followers }}</a>
+    <a href="{% url 'accounts:following' username %}">following: {{ following }}</a>
+
     {% for post in object_list %}
         <div class="panel panel-default">
             <div class="panel-heading">

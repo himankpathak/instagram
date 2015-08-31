@@ -30,7 +30,7 @@ class ProfileView(
         context['following'] = Connection.objects.filter(
             follower__username=username).count()
 
-        context['follower'] = Connection.objects.filter(
+        context['followers'] = Connection.objects.filter(
             following__username=username).count()
 
         session_key = self.request.session.session_key
@@ -38,6 +38,42 @@ class ProfileView(
         uid = session.get('_auth_user_id')
         context['user'] = User.objects.get(id=uid)
 
+        return context
+
+
+class FollowersListView(
+        views.LoginRequiredMixin,
+        generic.ListView
+):
+    model = Connection
+    template_name = 'accounts/account_list.html'
+    context_object_name = 'users'
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        return Connection.objects.filter(following__username=username)
+
+    def get_context_data(self):
+        context = super(FollowersListView, self).get_context_data()
+        context['mode'] = 'followers'
+        return context
+
+
+class FollowingListView(
+        views.LoginRequiredMixin,
+        generic.ListView
+):
+    model = Connection
+    template_name = 'accounts/account_list.html'
+    context_object_name = 'users'
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        return Connection.objects.filter(follower__username=username)
+
+    def get_context_data(self):
+        context = super(FollowingListView, self).get_context_data()
+        context['mode'] = 'following'
         return context
 
 

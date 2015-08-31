@@ -14,4 +14,14 @@ urlpatterns = [
         views.ProfileView.as_view(),
         name='profile'
     ),
+    url(
+        r'^(?P<username>[-\w]{5,30})/followers$',
+        views.FollowersListView.as_view(),
+        name='followers'
+    ),
+    url(
+        r'^(?P<username>[-\w]{5,30})/following/$',
+        views.FollowingListView.as_view(),
+        name='following'
+    ),
 ]
