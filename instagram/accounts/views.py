@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse_lazy
 from braces import views
 from posts.models import Post
 
-from .models import User
+from .models import User, Connection
 from .forms import SignUpForm, LoginForm
 
 
@@ -27,6 +27,11 @@ class ProfileView(
         username = self.kwargs['username']
         context['username'] = username
         context['object_list'] = Post.objects.filter(author__username=username)
+        context['following'] = Connection.objects.filter(
+            follower__username=username).count()
+
+        context['follower'] = Connection.objects.filter(
+            following__username=username).count()
 
         session_key = self.request.session.session_key
         session = Session.objects.get(session_key=session_key).get_decoded()

@@ -79,6 +79,12 @@ class Connection(models.Model):
     following = models.ForeignKey(User, related_name='following')
     date_created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return "{} : {}".format(
+            self.follower.username,
+            self.following.username
+        )
+
     def get_follower(self):
         return self.follower.username
 
