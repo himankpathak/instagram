@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.sessions.models import Session
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
@@ -24,8 +25,14 @@ class ProfileView(
     def get_context_data(self):
         context = super(ProfileView, self).get_context_data()
         username = self.kwargs['username']
+        context['username'] = username
         context['object_list'] = Post.objects.filter(author__username=username)
-        context['user'] = User.objects.get(username=username)
+
+        session_key = self.request.session.session_key
+        session = Session.objects.get(session_key=session_key).get_decoded()
+        uid = session.get('_auth_user_id')
+        context['user'] = User.objects.get(id=uid)
+
         return context
 
 
