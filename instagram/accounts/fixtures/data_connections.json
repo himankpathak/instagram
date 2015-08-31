@@ -1,0 +1,65 @@
+[
+    {
+        "model": "accounts.Connection",
+        "pk": 1,
+        "fields": {
+            "follower": 2,
+            "following": 5,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "accounts.Connection",
+        "pk": 2,
+        "fields": {
+            "follower": 4,
+            "following": 2,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "accounts.Connection",
+        "pk": 3,
+        "fields": {
+            "follower": 4,
+            "following": 2,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "accounts.Connection",
+        "pk": 4,
+        "fields": {
+            "follower": 3,
+            "following": 6,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "accounts.Connection",
+        "pk": 5,
+        "fields": {
+            "follower": 2,
+            "following": 4,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "accounts.Connection",
+        "pk": 6,
+        "fields": {
+            "follower": 2,
+            "following": 5,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "accounts.Connection",
+        "pk": 7,
+        "fields": {
+            "follower": 5,
+            "following": 2,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    }
+]
