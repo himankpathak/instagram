@@ -146,12 +146,16 @@ def follow_view(request, *args, **kwargs):
     follower = User.objects.get(username=request.user)
     following = User.objects.get(username=kwargs['username'])
 
-    new_connection = Connection(follower=follower, following=following)
-    new_connection.save()
+    _, created = Connection.objects.get_or_create(
+        follower=follower,
+        following=following
+    )
+
+    status = 'successfully' if created else 'already'
 
     messages.success(
         request,
-        'You\'ve just followed {}.'.format(following.username)
+        'You\'ve {} followed {}.'.format(status, following.username)
     )
     return HttpResponseRedirect(
         reverse_lazy(
