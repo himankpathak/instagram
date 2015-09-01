@@ -49,6 +49,8 @@ class UpdateAccountView(
         generic.UpdateView
 ):
     model = User
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
     form_class = AccountForm
     template_name = 'accounts/account_form.html'
 
