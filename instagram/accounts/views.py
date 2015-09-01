@@ -41,6 +41,15 @@ class ProfileView(
         context['followers'] = Connection.objects.filter(
             following__username=username).count()
 
+        if (username is not context['user'].username):
+            result = Connection.objects.filter(
+                follower__username=context['user'].username
+            ).filter(
+                following__username=username
+            )
+
+            context['connected'] = True if result else False
+
         return context
 
 
