@@ -151,12 +151,16 @@ def follow_view(request, *args, **kwargs):
         following=following
     )
 
-    status = 'successfully' if created else 'already'
-
-    messages.success(
-        request,
-        'You\'ve {} followed {}.'.format(status, following.username)
-    )
+    if (created):
+        messages.success(
+            request,
+            'You\'ve successfully followed {}.'.format(following.username)
+        )
+    else:
+        messages.warning(
+            request,
+            'You\'ve already followed {}.'.format(following.username)
+        )
     return HttpResponseRedirect(
         reverse_lazy(
             'accounts:profile',
