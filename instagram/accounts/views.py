@@ -17,26 +17,29 @@ from .forms import AccountForm, LoginForm
 
 class ProfileView(
         views.LoginRequiredMixin,
-        generic.ListView
+        generic.DetailView
 ):
-    model = Post
+    model = User
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
     template_name = 'accounts/profile.html'
 
-    def get_context_data(self):
-        context = super(ProfileView, self).get_context_data()
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
         username = self.kwargs['username']
         context['username'] = username
-        context['object_list'] = Post.objects.filter(author__username=username)
-        context['following'] = Connection.objects.filter(
-            follower__username=username).count()
-
-        context['followers'] = Connection.objects.filter(
-            following__username=username).count()
 
         session_key = self.request.session.session_key
         session = Session.objects.get(session_key=session_key).get_decoded()
         uid = session.get('_auth_user_id')
         context['user'] = User.objects.get(id=uid)
+
+        context['posts'] = Post.objects.filter(author__username=username)
+
+        context['following'] = Connection.objects.filter(
+            follower__username=username).count()
+        context['followers'] = Connection.objects.filter(
+            following__username=username).count()
 
         return context
 
