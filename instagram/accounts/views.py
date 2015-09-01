@@ -159,3 +159,23 @@ def follow_view(request, *args, **kwargs):
             kwargs={'username': following.username}
         )
     )
+
+
+@login_required
+def unfollow_view(request, *args, **kwargs):
+    follower = User.objects.get(username=request.user)
+    following = User.objects.get(username=kwargs['username'])
+
+    unfollow = Connection.objects.get(follower=follower, following=following)
+    unfollow.delete()
+
+    messages.success(
+        request,
+        'You\'ve just unfollowed {}.'.format(following.username)
+    )
+    return HttpResponseRedirect(
+        reverse_lazy(
+            'accounts:profile',
+            kwargs={'username': following.username}
+        )
+    )

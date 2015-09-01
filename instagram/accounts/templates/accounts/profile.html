@@ -5,7 +5,7 @@
     {% if user.username == username %}
         <a href="{% url 'accounts:update' user %}" class="btn btn-success">Edit profile</a>
     {% elif connected %}
-        <a href="#" class="btn btn-success">Unfollow</a>
+    <a href="{% url 'accounts:unfollow' username %}" class="btn btn-success">Unfollow</a>
     {% else  %}
         <a href="{% url 'accounts:follow' username %}" class="btn btn-primary">Follow</a>
     {% endif %}
