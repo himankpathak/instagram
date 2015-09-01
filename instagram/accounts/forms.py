@@ -42,9 +42,9 @@ class UserChangeForm(forms.ModelForm):
         )
 
 
-class CreateAccountForm(UserCreationForm):
+class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
-        super(CreateAccountForm, self).__init__(*args, **kwargs)
+        super(SignUpForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.layout = Layout(

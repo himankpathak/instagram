@@ -11,8 +11,13 @@ urlpatterns = [
     url(r'^logout/$', views.logout_view, name='logout'),
     url(
         r'^(?P<username>[-\w]{5,30})/$',
-        views.ProfileView.as_view(),
+        views.AccountDetailView.as_view(),
         name='profile'
+    ),
+    url(
+        r'^(?P<username>[-\w]{5,30})/update/$',
+        views.AccountUpdateView.as_view(),
+        name='update'
     ),
     url(
         r'^(?P<username>[-\w]{5,30})/followers$',
@@ -23,11 +28,6 @@ urlpatterns = [
         r'^(?P<username>[-\w]{5,30})/following/$',
         views.FollowingListView.as_view(),
         name='following'
-    ),
-    url(
-        r'^(?P<username>[-\w]{5,30})/update/$',
-        views.UpdateAccountView.as_view(),
-        name='update'
     ),
     url(
         r'^(?P<username>[-\w]{5,30})/follow/$',

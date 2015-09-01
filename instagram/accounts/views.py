@@ -12,20 +12,20 @@ from braces import views
 from posts.models import Post
 
 from .models import User, Connection
-from .forms import CreateAccountForm, UpdateAccountForm, LoginForm
+from .forms import SignUpForm, UpdateAccountForm, LoginForm
 
 
-class ProfileView(
+class AccountDetailView(
         views.LoginRequiredMixin,
         generic.DetailView
 ):
     model = User
     slug_field = 'username'
     slug_url_kwarg = 'username'
-    template_name = 'accounts/profile.html'
+    template_name = 'accounts/account_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ProfileView, self).get_context_data(**kwargs)
+        context = super(AccountDetailView, self).get_context_data(**kwargs)
         username = self.kwargs['username']
         context['username'] = username
 
@@ -53,12 +53,58 @@ class ProfileView(
         return context
 
 
+class AccountUpdateView(
+        views.LoginRequiredMixin,
+        views.FormValidMessageMixin,
+        generic.UpdateView
+):
+    model = User
+    form_valid_message = 'Successfully updated your account.'
+    form_class = UpdateAccountForm
+    template_name = 'accounts/account_form.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+
+
+class SignUpView(
+        views.AnonymousRequiredMixin,
+        views.FormValidMessageMixin,
+        generic.CreateView
+):
+    model = User
+    form_class = SignUpForm
+    form_valid_message = 'Successfully created your account, ' \
+                         'go ahead and login.'
+    success_url = reverse_lazy('accounts:login')
+    template_name = 'accounts/account_form.html'
+
+
+class LoginView(
+        views.AnonymousRequiredMixin,
+        generic.FormView
+):
+    form_class = LoginForm
+    success_url = reverse_lazy('home')
+    template_name = 'accounts/account_form.html'
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+
+        if user is not None and user.is_active:
+            login(self.request, user)
+            return super(LoginView, self).form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
 class FollowersListView(
         views.LoginRequiredMixin,
         generic.ListView
 ):
     model = Connection
-    template_name = 'accounts/account_list.html'
+    template_name = 'accounts/connections_list.html'
     context_object_name = 'users'
 
     def get_queryset(self):
@@ -76,7 +122,7 @@ class FollowingListView(
         generic.ListView
 ):
     model = Connection
-    template_name = 'accounts/account_list.html'
+    template_name = 'accounts/connections_list.html'
     context_object_name = 'users'
 
     def get_queryset(self):
@@ -87,51 +133,6 @@ class FollowingListView(
         context = super(FollowingListView, self).get_context_data()
         context['mode'] = 'following'
         return context
-
-
-class UpdateAccountView(
-        views.LoginRequiredMixin,
-        generic.UpdateView
-):
-    model = User
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
-    form_class = UpdateAccountForm
-    template_name = 'accounts/account_form.html'
-
-
-class SignUpView(
-        views.AnonymousRequiredMixin,
-        views.FormValidMessageMixin,
-        generic.CreateView
-):
-    form_class = CreateAccountForm
-    form_valid_message = 'Thanks for signing up, go ahead and login.'
-    model = User
-    success_url = reverse_lazy('accounts:login')
-    template_name = 'accounts/account_form.html'
-
-
-class LoginView(
-        views.AnonymousRequiredMixin,
-        views.FormValidMessageMixin,
-        generic.FormView
-):
-    form_class = LoginForm
-    form_valid_message = 'You\'re logged in now.'
-    success_url = reverse_lazy('home')
-    template_name = 'accounts/login.html'
-
-    def form_valid(self, form):
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        user = authenticate(username=username, password=password)
-
-        if user is not None and user.is_active:
-            login(self.request, user)
-            return super(LoginView, self).form_valid(form)
-        else:
-            return self.form_invalid(form)
 
 
 @login_required
