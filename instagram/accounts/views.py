@@ -12,7 +12,7 @@ from braces import views
 from posts.models import Post
 
 from .models import User, Connection
-from .forms import AccountForm, LoginForm
+from .forms import CreateAccountForm, UpdateAccountForm, LoginForm
 
 
 class ProfileView(
@@ -42,17 +42,6 @@ class ProfileView(
             following__username=username).count()
 
         return context
-
-
-class UpdateAccountView(
-        views.LoginRequiredMixin,
-        generic.UpdateView
-):
-    model = User
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
-    form_class = AccountForm
-    template_name = 'accounts/account_form.html'
 
 
 class FollowersListView(
@@ -91,12 +80,23 @@ class FollowingListView(
         return context
 
 
+class UpdateAccountView(
+        views.LoginRequiredMixin,
+        generic.UpdateView
+):
+    model = User
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    form_class = UpdateAccountForm
+    template_name = 'accounts/account_form.html'
+
+
 class SignUpView(
         views.AnonymousRequiredMixin,
         views.FormValidMessageMixin,
         generic.CreateView
 ):
-    form_class = AccountForm
+    form_class = CreateAccountForm
     form_valid_message = 'Thanks for signing up, go ahead and login.'
     model = User
     success_url = reverse_lazy('accounts:login')

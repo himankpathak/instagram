@@ -1,6 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import (
-    AuthenticationForm, ReadOnlyPasswordHashField)
+from django.contrib.auth.forms import AuthenticationForm
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
@@ -34,24 +33,18 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
-
     class Meta:
         model = User
-        fields = ('username',
-                  'email',
-                  'password',
-                  'name',
-                  'is_active',
-                  'is_admin')
-
-    def clean_password(self):
-        return self.initial['password']
+        fields = (
+            'username',
+            'email',
+            'name',
+        )
 
 
-class AccountForm(UserCreationForm):
+class CreateAccountForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
-        super(AccountForm, self).__init__(*args, **kwargs)
+        super(CreateAccountForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -60,6 +53,19 @@ class AccountForm(UserCreationForm):
             'password1',
             'password2',
             Submit('signup', 'Sign up', css_class='btn primary')
+        )
+
+
+class UpdateAccountForm(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(UpdateAccountForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'username',
+            'email',
+            'name',
+            Submit('update', 'Update Account', css_class='btn primary')
         )
 
 
