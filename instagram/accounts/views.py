@@ -130,3 +130,23 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'You\'ve been logged out. Come back soon!')
     return HttpResponseRedirect(reverse_lazy('home'))
+
+
+@login_required
+def follow_view(request, *args, **kwargs):
+    follower = User.objects.get(username=request.user)
+    following = User.objects.get(username=kwargs['username'])
+
+    new_connection = Connection(follower=follower, following=following)
+    new_connection.save()
+
+    messages.success(
+        request,
+        'You\'ve just followed {}.'.format(following.username)
+    )
+    return HttpResponseRedirect(
+        reverse_lazy(
+            'accounts:profile',
+            kwargs={'username': following.username}
+        )
+    )

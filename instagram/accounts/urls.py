@@ -29,4 +29,9 @@ urlpatterns = [
         views.UpdateAccountView.as_view(),
         name='update'
     ),
+    url(
+        r'^(?P<username>[-\w]{5,30})/follow/$',
+        views.follow_view,
+        name='follow'
+    ),
 ]

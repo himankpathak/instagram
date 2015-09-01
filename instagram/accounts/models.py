@@ -84,9 +84,3 @@ class Connection(models.Model):
             self.follower.username,
             self.following.username
         )
-
-    def get_follower(self):
-        return self.follower.username
-
-    def get_following(self):
-        return self.following.username

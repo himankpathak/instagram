@@ -3,11 +3,11 @@
 {% block content %}
     <h1>@{{ username }}</h1>
     {% if user.username == username %}
-    <a href="{% url 'accounts:update' user %}" class="btn btn-success">Edit profile</a>
+        <a href="{% url 'accounts:update' user %}" class="btn btn-success">Edit profile</a>
     {% elif connected %}
         <a href="#" class="btn btn-success">Unfollow</a>
     {% else  %}
-        <a href="#" class="btn btn-primary">Follow</a>
+        <a href="{% url 'accounts:follow' username %}" class="btn btn-primary">Follow</a>
     {% endif %}
     <a href="{% url 'accounts:followers' username %}">followers: {{ followers }}</a>
     <a href="{% url 'accounts:following' username %}">following: {{ following }}</a>
