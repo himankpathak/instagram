@@ -8,13 +8,28 @@ from crispy_forms.layout import Layout, Submit
 from .models import Post
 
 
-class PostForm(forms.ModelForm):
+class UpdatePostForm(forms.ModelForm):
+    class Meta:
+        fields = ('caption', )
+        model = Post
+
+    def __init__(self, *args, **kwargs):
+        super(UpdatePostForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'caption',
+            Submit('submit', 'Submit', css_class='btn primary')
+        )
+
+
+class CreatePostForm(forms.ModelForm):
     class Meta:
         fields = ('photo', 'caption', )
         model = Post
 
     def __init__(self, *args, **kwargs):
-        super(PostForm, self).__init__(*args, **kwargs)
+        super(CreatePostForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.layout = Layout(

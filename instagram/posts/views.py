@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse_lazy
 from braces import views
 
 from .models import Post
-from .forms import PostForm
+from .forms import CreatePostForm, UpdatePostForm
 
 
 class ViewPostView(
@@ -27,7 +27,7 @@ class CreatePostView(
         generic.CreateView
 ):
     model = Post
-    form_class = PostForm
+    form_class = CreatePostForm
     template_name = 'posts/form.html'
 
     def form_valid(self, form):
@@ -42,7 +42,7 @@ class UpdatePostView(
         generic.UpdateView
 ):
     model = Post
-    form_class = PostForm
+    form_class = UpdatePostForm
     template_name = 'posts/form.html'
 
 
