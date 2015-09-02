@@ -3,6 +3,7 @@ from random import choice
 
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.utils.encoding import python_2_unicode_compatible
 
 from accounts.models import User
 
@@ -13,6 +14,7 @@ def generate_id():
         return ''.join(choice(random) for _ in range(n))
 
 
+@python_2_unicode_compatible
 class Post(models.Model):
     author = models.ForeignKey(User, related_name='post')
     slug = models.SlugField(unique=True, max_length=10, default=generate_id)

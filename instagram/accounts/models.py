@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.core.urlresolvers import reverse
+from django.utils.encoding import python_2_unicode_compatible
 
 
 class UserManager(BaseUserManager):
@@ -31,6 +32,7 @@ class UserManager(BaseUserManager):
         return user
 
 
+@python_2_unicode_compatible
 class User(AbstractBaseUser):
     email = models.EmailField(
         verbose_name='email address',
@@ -74,6 +76,7 @@ class User(AbstractBaseUser):
         return self.is_admin
 
 
+@python_2_unicode_compatible
 class Connection(models.Model):
     follower = models.ForeignKey(User, related_name='follower')
     following = models.ForeignKey(User, related_name='following')
