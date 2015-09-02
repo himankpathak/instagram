@@ -76,3 +76,20 @@ class DeletePostView(
     form_valid_message = 'Successfully deleted your post.'
     success_url = reverse_lazy('home')
     template_name = 'posts/post_delete.html'
+
+    def get(self, request, *args, **kwargs):
+        post = Post.objects.get(slug=kwargs['slug'])
+
+        if (post.author != request.user):
+            messages.warning(
+                request,
+                'You don\'t have permission to delete this post.',
+            )
+            return HttpResponseRedirect(
+                reverse_lazy(
+                    'posts:view',
+                    kwargs={'slug': kwargs['slug']}
+                )
+            )
+        else:
+            return super(DeletePostView, self).get(request, *args, **kwargs)
