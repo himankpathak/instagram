@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 from braces import views
 
@@ -46,6 +48,23 @@ class UpdatePostView(
     form_valid_message = 'Successfully updated your post.'
     form_class = UpdatePostForm
     template_name = 'posts/post_form.html'
+
+    def get(self, request, *args, **kwargs):
+        post = Post.objects.get(slug=kwargs['slug'])
+
+        if (post.author != request.user):
+            messages.warning(
+                request,
+                'You don\'t have permission to update this post.',
+            )
+            return HttpResponseRedirect(
+                reverse_lazy(
+                    'posts:view',
+                    kwargs={'slug': kwargs['slug']}
+                )
+            )
+        else:
+            return super(UpdatePostView, self).get(request, *args, **kwargs)
 
 
 class DeletePostView(
