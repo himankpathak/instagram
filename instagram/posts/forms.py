@@ -19,7 +19,7 @@ class UpdatePostForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             'caption',
-            Submit('submit', 'Update', css_class='btn primary')
+            Submit('update', 'Update', css_class='btn primary')
         )
 
 
@@ -35,7 +35,7 @@ class CreatePostForm(forms.ModelForm):
         self.helper.layout = Layout(
             'photo',
             'caption',
-            Submit('submit', 'Post', css_class='btn primary')
+            Submit('post', 'Post', css_class='btn primary')
         )
 
 
@@ -45,5 +45,5 @@ class DeletePostForm:
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field('Are you sure you want to delete your post?'),
-            Submit('submit', 'Yes', css_class='btn primary')
+            Submit('yes', 'Yes', css_class='btn primary')
         )
