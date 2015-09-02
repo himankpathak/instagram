@@ -10,11 +10,9 @@ class HomePageView(generic.ListView):
     template_name = 'home.html'
 
     def get_queryset(self):
-        connections = Connection.objects.filter(
+        following = Connection.objects.filter(
             follower__username=self.request.user
-        )
-
-        following = [connection.following for connection in connections]
+        ).values_list('following').order_by('date_created')
 
         return Post.objects.filter(
             Q(author__in=following) |
