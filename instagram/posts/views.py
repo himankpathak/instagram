@@ -6,15 +6,15 @@ from django.core.urlresolvers import reverse_lazy
 from braces import views
 
 from .models import Post
-from .forms import CreatePostForm, UpdatePostForm
+from .forms import CreatePostForm, UpdatePostForm, DeletePostForm
 
 
-class ViewPostView(
+class DetailPostView(
         views.LoginRequiredMixin,
         generic.DetailView
 ):
     model = Post
-    template_name = 'posts/view.html'
+    template_name = 'posts/post_detail.html'
     context_object_name = 'post'
 
     def get_queryset(self):
@@ -28,7 +28,7 @@ class CreatePostView(
 ):
     model = Post
     form_class = CreatePostForm
-    template_name = 'posts/form.html'
+    template_name = 'posts/post_form.html'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -39,11 +39,13 @@ class CreatePostView(
 
 class UpdatePostView(
         views.LoginRequiredMixin,
+        views.FormValidMessageMixin,
         generic.UpdateView
 ):
     model = Post
+    form_valid_message = 'Successfully updated your post.'
     form_class = UpdatePostForm
-    template_name = 'posts/form.html'
+    template_name = 'posts/post_form.html'
 
 
 class DeletePostView(
@@ -51,5 +53,7 @@ class DeletePostView(
         generic.DeleteView
 ):
     model = Post
+    form_valid_message = 'Successfully deleted your post.'
+    form_class = DeletePostForm
     success_url = reverse_lazy('home')
-    template_name = 'posts/delete.html'
+    template_name = 'posts/post_delete.html'
