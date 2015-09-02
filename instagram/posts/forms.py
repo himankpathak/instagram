@@ -37,19 +37,3 @@ class CreatePostForm(forms.ModelForm):
             'caption',
             Submit('post', 'Post', css_class='btn primary')
         )
-
-
-class DeletePostForm(forms.ModelForm):
-    class Meta:
-        fields = ('photo', 'caption', )
-        model = Post
-
-    def __init__(self, *args, **kwargs):
-        super(DeletePostForm, self).__init__(*args, **kwargs)
-
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            'photo',
-            'caption',
-            Submit('yes', 'Yes', css_class='btn primary')
-        )
