@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Field
+from crispy_forms.layout import Layout, Submit
 
 from .models import Post
 
@@ -39,11 +39,17 @@ class CreatePostForm(forms.ModelForm):
         )
 
 
-class DeletePostForm:
+class DeletePostForm(forms.ModelForm):
+    class Meta:
+        fields = ('photo', 'caption', )
+        model = Post
+
     def __init__(self, *args, **kwargs):
-        print(self, args, kwargs)
+        super(DeletePostForm, self).__init__(*args, **kwargs)
+
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            Field('Are you sure you want to delete your post?'),
+            'photo',
+            'caption',
             Submit('yes', 'Yes', css_class='btn primary')
         )

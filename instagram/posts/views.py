@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse_lazy
 from braces import views
 
 from .models import Post
-from .forms import CreatePostForm, UpdatePostForm, DeletePostForm
+from .forms import CreatePostForm, UpdatePostForm
 
 
 class DetailPostView(
@@ -50,10 +50,10 @@ class UpdatePostView(
 
 class DeletePostView(
         views.LoginRequiredMixin,
+        views.FormValidMessageMixin,
         generic.DeleteView
 ):
     model = Post
     form_valid_message = 'Successfully deleted your post.'
-    form_class = DeletePostForm
     success_url = reverse_lazy('home')
     template_name = 'posts/post_delete.html'
