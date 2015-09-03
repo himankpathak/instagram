@@ -11,12 +11,12 @@ urlpatterns = [
     url(r'^logout/$', views.logout_view, name='logout'),
     url(
         r'^(?P<username>[-\w]{5,30})/$',
-        views.AccountDetailView.as_view(),
+        views.DetailAccountView.as_view(),
         name='profile'
     ),
     url(
         r'^(?P<username>[-\w]{5,30})/update/$',
-        views.AccountUpdateView.as_view(),
+        views.UpdateAccountView.as_view(),
         name='update'
     ),
     url(

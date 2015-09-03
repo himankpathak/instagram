@@ -15,7 +15,7 @@ from .models import User, Connection
 from .forms import SignUpForm, UpdateAccountForm, LoginForm
 
 
-class AccountDetailView(
+class DetailAccountView(
         views.LoginRequiredMixin,
         generic.DetailView
 ):
@@ -25,7 +25,7 @@ class AccountDetailView(
     template_name = 'accounts/account_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(AccountDetailView, self).get_context_data(**kwargs)
+        context = super(DetailAccountView, self).get_context_data(**kwargs)
         username = self.kwargs['username']
         context['username'] = username
 
@@ -53,7 +53,7 @@ class AccountDetailView(
         return context
 
 
-class AccountUpdateView(
+class UpdateAccountView(
         views.LoginRequiredMixin,
         views.FormValidMessageMixin,
         generic.UpdateView
