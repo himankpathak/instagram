@@ -1,5 +1,7 @@
 from django.db.models import Q
 from django.views import generic
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from accounts.models import Connection
 from posts.models import Post
@@ -18,3 +20,12 @@ class HomePageView(generic.ListView):
             Q(author__in=following) |
             Q(author__username=self.request.user)
         )
+
+
+def handler404(request):
+    response = render_to_response(
+        '404.html', {},
+        context_instance=RequestContext(request)
+    )
+    response.status_code = 404
+    return response
