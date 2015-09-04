@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.sessions.models import Session
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 
@@ -12,7 +12,7 @@ from braces import views
 from posts.models import Post
 
 from .models import User, Connection
-from .forms import SignUpForm, UpdateAccountForm, LoginForm
+from .forms import SignUpForm, UpdateAccountForm, LoginForm, ChangePasswordForm
 
 
 class DetailAccountView(
@@ -64,6 +64,31 @@ class UpdateAccountView(
     template_name = 'accounts/account_form.html'
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+
+class ChangePasswordView(
+        views.LoginRequiredMixin,
+        views.FormValidMessageMixin,
+        generic.FormView
+):
+    form_valid_message = 'Successfully updated your password.'
+    form_class = ChangePasswordForm
+    template_name = 'accounts/account_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'accounts:profile',
+            kwargs={'username': self.request.user.username},
+        )
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.initial['user'] = self.request.user
+        except AttributeError:
+            raise Http404
+
+        return super(ChangePasswordView, self).dispatch(
+            request, *args, **kwargs)
 
 
 class SignUpView(

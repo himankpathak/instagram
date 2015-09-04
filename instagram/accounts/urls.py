@@ -20,6 +20,11 @@ urlpatterns = [
         name='update'
     ),
     url(
+        r'^(?P<username>[-\w]{5,30})/update/password/$',
+        views.ChangePasswordView.as_view(),
+        name='change_password'
+    ),
+    url(
         r'^(?P<username>[-\w]{5,30})/followers$',
         views.FollowersListView.as_view(),
         name='followers'
