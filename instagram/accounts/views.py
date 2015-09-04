@@ -73,13 +73,14 @@ class ChangePasswordView(
 ):
     form_valid_message = 'Successfully updated your password.'
     form_class = ChangePasswordForm
+    success_url = reverse_lazy('home')
     template_name = 'accounts/account_form.html'
 
-    def get_success_url(self):
-        return reverse_lazy(
-            'accounts:profile',
-            kwargs={'username': self.request.user.username},
-        )
+    def form_valid(self, form):
+        self.request.user.set_password(form.cleaned_data['new_password1'])
+        self.request.user.save()
+
+        return super(ChangePasswordView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
         try:
