@@ -1,0 +1,12 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>
+    </div>
+    <div class="panel-body">
+        <img src="{{ post.photo.url }}" alt="{{ post.caption }}" width="500px" height="500px" />
+        <p>{{ post.caption }}</p>
+    </div>
+    <div class="panel-footer">
+        <p>Likes: {{ likes }}</p>
+    </div>
+</div>

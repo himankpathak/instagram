@@ -13,14 +13,6 @@
     <a href="{% url 'accounts:following' username %}">following: {{ following }}</a>
 
     {% for post in posts %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>
-            </div>
-            <div class="panel-body">
-                <img src="{{ post.photo.url }}" alt="{{ post.caption }}">
-                <p>{{ post.caption }}</p>
-            </div>
-        </div>
+        {% include 'posts/post.html' %}
     {% endfor %}
 {% endblock %}
