@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 
 from braces import views
 
-from .models import Post
+from .models import Post, Like
 from .forms import CreatePostForm, UpdatePostForm
 
 
@@ -22,6 +22,12 @@ class DetailPostView(
     def get_queryset(self):
         slug = self.kwargs['slug']
         return Post.objects.filter(slug=slug)
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailPostView, self).get_context_data(**kwargs)
+        context['likes'] = Like.objects.filter(post=context['post']).count()
+
+        return context
 
 
 class CreatePostView(
