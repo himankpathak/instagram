@@ -1,7 +1,7 @@
 from posts.models import Post, Like
 
 
-def get_post(username=None):
+def get_posts(username=None):
     posts = Post.objects.filter(author__username=username)
 
     return {

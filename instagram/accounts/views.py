@@ -9,7 +9,7 @@ from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 
 from braces import views
-from posts.helpers import get_post
+from posts.helpers import get_posts
 
 from .models import User, Connection
 from .forms import SignUpForm, UpdateAccountForm, LoginForm, ChangePasswordForm
@@ -34,7 +34,7 @@ class DetailAccountView(
         uid = session.get('_auth_user_id')
         context['user'] = User.objects.get(id=uid)
 
-        context['posts'] = get_post(username)
+        context['posts'] = get_posts(username)
 
         context['following'] = Connection.objects.filter(
             follower__username=username).count()
