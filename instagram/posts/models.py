@@ -32,3 +32,13 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('posts:view', kwargs={'slug': self.slug})
+
+
+@python_2_unicode_compatible
+class Like(models.Model):
+    post = models.ForeignKey(Post)
+    user = models.ForeignKey(User)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{} : {}'.format(self.user, self.post)

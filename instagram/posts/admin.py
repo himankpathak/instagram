@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from django.contrib import admin
 
-from .models import Post
+from .models import Post, Like
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -13,3 +13,4 @@ class PostAdmin(admin.ModelAdmin):
                         'date_updated', )
 
 admin.site.register(Post, PostAdmin)
+admin.site.register(Like)
