@@ -9,7 +9,7 @@ from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 
 from braces import views
-from posts.models import Post
+from posts.models import Post, Like
 
 from .models import User, Connection
 from .forms import SignUpForm, UpdateAccountForm, LoginForm, ChangePasswordForm
@@ -34,7 +34,11 @@ class DetailAccountView(
         uid = session.get('_auth_user_id')
         context['user'] = User.objects.get(id=uid)
 
-        context['posts'] = Post.objects.filter(author__username=username)
+        posts = Post.objects.filter(author__username=username)
+        context['posts'] = {
+            post: Like.objects.filter(post=post).count()
+            for post in posts
+        }
 
         context['following'] = Connection.objects.filter(
             follower__username=username).count()
