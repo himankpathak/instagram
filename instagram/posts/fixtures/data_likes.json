@@ -1,0 +1,38 @@
+[
+    {
+        "model": "posts.Like",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "post": 6,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "posts.Like",
+        "pk": 2,
+        "fields": {
+            "user": 3,
+            "post": 2,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "posts.Like",
+        "pk": 3,
+        "fields": {
+            "user": 5,
+            "post": 6,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    },
+    {
+        "model": "posts.Like",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "post": 1,
+            "date_created": "2015-08-30T10:30:00+00:00"
+        }
+    }
+]
