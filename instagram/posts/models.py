@@ -36,8 +36,8 @@ class Post(models.Model):
 
 @python_2_unicode_compatible
 class Like(models.Model):
-    post = models.ForeignKey(Post)
-    user = models.ForeignKey(User)
+    post = models.ForeignKey(Post, related_name='like_post')
+    user = models.ForeignKey(User, related_name='liker')
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

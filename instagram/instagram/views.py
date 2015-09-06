@@ -1,30 +1,18 @@
-from django.db.models import Q
 from django.views import generic
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from accounts.models import Connection
-from posts.models import Post, Like
+from posts.models import Post
+from posts.helpers import get_posts
 
 
 class HomePageView(generic.ListView):
     model = Post
     template_name = 'home.html'
+    context_object_name = 'posts'
 
     def get_queryset(self):
-        following = Connection.objects.filter(
-            follower__username=self.request.user
-        ).values_list('following').order_by('date_created')
-
-        posts = Post.objects.filter(
-            Q(author__in=following) |
-            Q(author__username=self.request.user)
-        )
-
-        return {
-            post: Like.objects.filter(post=post).count()
-            for post in posts
-        }
+        return get_posts(username=self.request.user.username, wall=True)
 
 
 def handler404(request):

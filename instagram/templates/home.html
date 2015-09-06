@@ -3,7 +3,7 @@
 {% block content %}
     {% if user.is_authenticated %}
         <h1>wall</h1>
-        {% for post, likes in object_list.items %}
+        {% for post in posts  %}
             {% include 'posts/post.html' %}
         {% endfor %}
     {% else %}
