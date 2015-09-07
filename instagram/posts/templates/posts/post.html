@@ -9,7 +9,7 @@
     <div class="panel-footer">
         <p>Likes: {{ post.likes }}</p>
         <div class="input-group">
-            <a href="#" class="input-group-addon btn btn-default"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
+            <a href="#" class="input-group-addon btn btn-default {{ is_liked }}"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
             <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment">
         </div>
     </div>
