@@ -12,7 +12,7 @@ class HomePageView(generic.ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        return get_posts(username=self.request.user.username, wall=True)
+        return get_posts(user=self.request.user, wall=True)
 
 
 def handler404(request):
