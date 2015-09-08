@@ -15,16 +15,21 @@ def get_posts(user=None, wall=False):
                            .filter(follower=user) \
                            .values_list('following', flat=True)
 
-    return Post.objects \
-               .select_related('author') \
-               .prefetch_related(
-                   Prefetch(
-                       'liked_post',
-                       queryset=Like.objects.select_related('user'),
-                       to_attr='liker'
-                   )) \
-               .filter(author__in=users) \
-               .order_by('date_created')
+    posts = Post.objects \
+                .select_related('author') \
+                .prefetch_related(
+                    Prefetch(
+                        'liked_post',
+                        queryset=Like.objects.select_related('user'),
+                        to_attr='liker'
+                    )) \
+                .filter(author__in=users) \
+                .order_by('date_created')
+
+    for post in posts:
+        post.liker = [liker.user for liker in post.liker]
+
+    return posts
 
 
 def get_post(slug=None):
@@ -40,5 +45,7 @@ def get_post(slug=None):
                        to_attr='liker'
                        )) \
                .get(slug=slug)
+
+    post.liker = [liker.user for liker in post.liker]
 
     return post
