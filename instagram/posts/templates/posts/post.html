@@ -1,16 +1,21 @@
 <div id="{{ post.slug }}" class="panel panel-default">
     <div class="panel-heading">
         <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>
+        {{ post.date_created|timesince }}
     </div>
     <div class="panel-body">
         <img src="{{ post.photo.url }}" alt="{{ post.caption }}" width="500px" height="500px" />
         <p>{{ post.caption }}</p>
     </div>
     <div class="panel-footer">
-        <p>Likes: {{ post.likes }}</p>
+        <p>Likes: {{ post.liker|length }}</p>
         <div class="input-group">
-            <a href="#" class="input-group-addon btn btn-default {{ is_liked }}"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
-            <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment">
+            {% if post.author in post.liker %}
+                <a href="#" class="input-group-addon btn btn-default red"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
+            {% else %}
+                <a href="#" class="input-group-addon btn btn-default"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
+            {% endif %}
+        <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment">
         </div>
     </div>
 </div>
