@@ -10,7 +10,7 @@
     <div class="panel-footer">
         <p>Likes: {{ post.liker|length }}</p>
         <div class="input-group">
-            {% if post.author in post.liker %}
+            {% if user in post.liker %}
                 <a href="#" class="input-group-addon btn btn-default red"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
             {% else %}
                 <a href="#" class="input-group-addon btn btn-default"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
