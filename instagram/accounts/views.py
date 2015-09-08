@@ -30,8 +30,7 @@ class DetailAccountView(
         context['username'] = username
 
         context['user'] = get_current_user(self.request)
-
-        context['posts'] = get_posts(user=context['user'])
+        context['posts'] = get_posts(username=username)
 
         context['following'] = Connection.objects.filter(
             follower__username=username).count()

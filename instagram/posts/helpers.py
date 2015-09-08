@@ -1,18 +1,18 @@
 from django.db.models import Prefetch
 
 from posts.models import Post, Like
-from accounts.models import Connection
+from accounts.models import Connection, User
 
 
-def get_posts(user=None, wall=False):
-    if not user:
+def get_posts(username=None, wall=False):
+    if not username:
         return None
 
-    users = [user, ]
+    users = [User.objects.get(username=username), ]
 
     if wall:
         users += Connection.objects \
-                           .filter(follower=user) \
+                           .filter(follower__username=username) \
                            .values_list('following', flat=True)
 
     posts = Post.objects \

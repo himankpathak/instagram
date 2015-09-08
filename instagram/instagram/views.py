@@ -12,10 +12,7 @@ class HomePageView(generic.ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        if self.request.user.is_authenticated():
-            return get_posts(user=self.request.user, wall=True)
-        else:
-            return None
+        return get_posts(username=self.request.user.username, wall=True)
 
 
 def handler404(request):
