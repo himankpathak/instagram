@@ -1,4 +1,4 @@
-from django.db.models import Count, Prefetch
+from django.db.models import Prefetch
 
 from posts.models import Post, Like
 from accounts.models import Connection
@@ -16,8 +16,14 @@ def get_posts(user=None, wall=False):
                            .values_list('following', flat=True)
 
     return Post.objects \
+               .select_related('author') \
+               .prefetch_related(
+                   Prefetch(
+                       'liked_post',
+                       queryset=Like.objects.select_related('user'),
+                       to_attr='liker'
+                   )) \
                .filter(author__in=users) \
-               .annotate(likes=Count('liked_post')) \
                .order_by('date_created')
 
 
