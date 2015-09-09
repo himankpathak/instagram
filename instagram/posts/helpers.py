@@ -11,6 +11,9 @@ def get_posts(user=None, wall=False):
     if isinstance(user, str):
         user = User.objects.get(username=user)
 
+    if not user.is_authenticated():
+        return None
+
     users = [user, ]
 
     if wall:
