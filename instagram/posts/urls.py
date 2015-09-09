@@ -26,4 +26,9 @@ urlpatterns = [
         views.DeletePostView.as_view(),
         name='delete'
     ),
+    url(
+        r'(?P<slug>[\w\-]{10})/like/$',
+        views.like_post_view,
+        name='like'
+    ),
 ]

@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
@@ -7,7 +8,7 @@ from django.http import HttpResponseRedirect
 
 from braces import views
 
-from .models import Post
+from .models import Post, Like
 from .forms import CreatePostForm, UpdatePostForm
 from .helpers import get_post
 
@@ -96,3 +97,29 @@ class DeletePostView(
             )
         else:
             return super(DeletePostView, self).get(request, *args, **kwargs)
+
+
+@login_required
+def like_post_view(request, *args, **kwargs):
+    try:
+        post = Post.objects.get(slug=kwargs['slug'])
+
+        _, created = Like.objects.get_or_create(post=post, user=request.user)
+
+        if not created:
+            messages.warning(
+                request,
+                'You\'ve already liked the post.'
+            )
+    except Post.DoesNotExist:
+        messages.warning(
+            request,
+            'Post does not exist'
+        )
+
+    return HttpResponseRedirect(
+        reverse_lazy(
+            'posts:view',
+            kwargs={'slug': kwargs['slug']}
+        )
+    )
