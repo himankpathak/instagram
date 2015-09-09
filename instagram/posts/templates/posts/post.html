@@ -8,7 +8,7 @@
         <p>{{ post.caption }}</p>
     </div>
     <div class="panel-footer">
-        <p>Likes: {{ post.liker|length }}</p>
+        <a href="#" data-toggle="modal" data-target="#{{ post.slug }}_likers_modal">Likes: {{ post.liker|length }}</a>
         <div class="input-group">
             {% if user in post.liker %}
                 <a href="#" class="input-group-addon btn btn-default red"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
@@ -19,3 +19,5 @@
         </div>
     </div>
 </div>
+
+{% include 'posts/likers.html' %}
