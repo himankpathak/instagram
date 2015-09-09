@@ -4,15 +4,18 @@ from posts.models import Post, Like
 from accounts.models import Connection, User
 
 
-def get_posts(username=None, wall=False):
-    if not username:
+def get_posts(user=None, wall=False):
+    if not user:
         return None
 
-    users = [User.objects.get(username=username), ]
+    if isinstance(user, str):
+        user = User.objects.get(username=user)
+
+    users = [user, ]
 
     if wall:
         users += Connection.objects \
-                           .filter(follower__username=username) \
+                           .filter(follower__username=user) \
                            .values_list('following', flat=True)
 
     posts = Post.objects \
