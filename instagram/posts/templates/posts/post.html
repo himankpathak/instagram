@@ -16,7 +16,7 @@
         {% endif %}
         <div class="input-group">
             {% if user in post.liker %}
-            <a href="#" class="input-group-addon btn btn-default red"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
+                <a href="{% url 'posts:unlike' post.slug %}" class="input-group-addon btn btn-default red"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
             {% else %}
                 <a href="{% url 'posts:like' post.slug %}" class="input-group-addon btn btn-default"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
             {% endif %}

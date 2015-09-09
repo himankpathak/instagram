@@ -31,4 +31,9 @@ urlpatterns = [
         views.like_post_view,
         name='like'
     ),
+    url(
+        r'(?P<slug>[\w\-]{10})/unlike/$',
+        views.unlike_post_view,
+        name='unlike'
+    ),
 ]

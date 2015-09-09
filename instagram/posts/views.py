@@ -123,3 +123,26 @@ def like_post_view(request, *args, **kwargs):
             kwargs={'slug': kwargs['slug']}
         )
     )
+
+
+@login_required
+def unlike_post_view(request, *args, **kwargs):
+    try:
+        like = Like.objects.get(
+            post__slug=kwargs['slug'],
+            user=request.user
+        )
+    except Like.DoesNotExist:
+        messages.warning(
+            request,
+            'You didn\'t like the post.'
+        )
+    else:
+        like.delete()
+
+    return HttpResponseRedirect(
+        reverse_lazy(
+            'posts:view',
+            kwargs={'slug': kwargs['slug']}
+        )
+    )
