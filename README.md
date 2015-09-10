@@ -13,8 +13,8 @@ List packages I use for this project.
 
 #Installation
 
-.. code-block:: bash
     git clone https://github.com/benigls/instagram.git
+    
 
 
 #Contributions
