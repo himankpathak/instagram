@@ -172,7 +172,7 @@ def follow_view(request, *args, **kwargs):
     except User.DoesNotExist:
         messages.warning(
             request,
-            '{} is not a register user.'.format(kwargs['username'])
+            '{} is not a registered user.'.format(kwargs['username'])
         )
         return HttpResponseRedirect(reverse_lazy('home'))
 
@@ -207,25 +207,37 @@ def follow_view(request, *args, **kwargs):
 
 @login_required
 def unfollow_view(request, *args, **kwargs):
-    follower = User.objects.get(username=request.user)
-    following = User.objects.get(username=kwargs['username'])
-
     try:
-        unfollow = Connection.objects.get(
-            follower=follower,
-            following=following
+        follower = User.objects.get(username=request.user)
+        following = User.objects.get(username=kwargs['username'])
+
+        if follower == following:
+            messages.warning(
+                request,
+                'You cannot unfollow yourself.'
+            )
+        else:
+            unfollow = Connection.objects.get(
+                follower=follower,
+                following=following
+            )
+
+            unfollow.delete()
+
+            messages.success(
+                request,
+                'You\'ve just unfollowed {}.'.format(following.username)
+            )
+    except User.DoesNotExist:
+        messages.warning(
+            request,
+            '{} is not a registered user.'.format(kwargs['username'])
         )
+        return HttpResponseRedirect(reverse_lazy('home'))
     except Connection.DoesNotExist:
         messages.warning(
             request,
             'You didn\'t follow {0}.'.format(following.username)
-        )
-    else:
-        unfollow.delete()
-
-        messages.success(
-            request,
-            'You\'ve just unfollowed {}.'.format(following.username)
         )
 
     return HttpResponseRedirect(
