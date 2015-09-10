@@ -166,24 +166,37 @@ def logout_view(request):
 
 @login_required
 def follow_view(request, *args, **kwargs):
-    follower = User.objects.get(username=request.user)
-    following = User.objects.get(username=kwargs['username'])
-
-    _, created = Connection.objects.get_or_create(
-        follower=follower,
-        following=following
-    )
-
-    if (created):
-        messages.success(
-            request,
-            'You\'ve successfully followed {}.'.format(following.username)
-        )
-    else:
+    try:
+        follower = User.objects.get(username=request.user)
+        following = User.objects.get(username=kwargs['username'])
+    except User.DoesNotExist:
         messages.warning(
             request,
-            'You\'ve already followed {}.'.format(following.username)
+            '{} is not a register user.'.format(kwargs['username'])
         )
+        return HttpResponseRedirect(reverse_lazy('home'))
+
+    if follower == following:
+        messages.warning(
+            request,
+            'You cannot follow yourself.'
+        )
+    else:
+        _, created = Connection.objects.get_or_create(
+            follower=follower,
+            following=following
+        )
+
+        if (created):
+            messages.success(
+                request,
+                'You\'ve successfully followed {}.'.format(following.username)
+            )
+        else:
+            messages.warning(
+                request,
+                'You\'ve already followed {}.'.format(following.username)
+            )
     return HttpResponseRedirect(
         reverse_lazy(
             'accounts:profile',
