@@ -157,6 +157,15 @@ class FollowingListView(
         return context
 
 
+class ListAccountView(
+        views.LoginRequiredMixin,
+        generic.ListView
+):
+    model = User
+    template_name = 'accounts/account_list.html'
+    context_object_name = 'users'
+
+
 @login_required
 def logout_view(request):
     logout(request)
