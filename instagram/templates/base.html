@@ -37,6 +37,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
                         <li><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></li>
+                        <li><a href="{% url 'posts:create' %}">Create Post</a></li>
                         <li><a href="{% url 'accounts:user_list' %}">List of Users</a></li>
                         <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
                     {% else %}
