@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>@{{ username }}</h1>
+    <h3>{{ object.name }}</h3>
     {% if user.username == username %}
         <a href="{% url 'accounts:update' user %}" class="btn btn-success">Edit profile</a>
     {% elif connected %}
