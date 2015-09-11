@@ -13,3 +13,11 @@ urlpatterns = [
     url(r'^p/', include('posts.urls', namespace='posts')),
     url(r'^admin/', include(admin.site.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    url(
+        r'^static/(?P.*)$',
+        'django.views.static.serve',
+        {'document_root': settings.STATIC_ROOT}
+    ),
+]
