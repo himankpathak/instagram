@@ -9,3 +9,5 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS += (
     'debug_toolbar',
 )
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '..', 'static'), ]
