@@ -1,8 +1,11 @@
 <div id="{{ post.slug }}" class="panel panel-default">
     <div class="panel-heading">
-        <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>
-        <br>
+        <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a> |
         <a href="{% url 'posts:view' post.slug %}">{{ post.date_created|timesince }}</a>
+        {% if user ==  post.author %}
+            | <a href="{% url 'posts:update' post.slug %}">Update</a> |
+            <a href="{% url 'posts:delete' post.slug %}">Delete</a>
+        {% endif %}
     </div>
     <div class="panel-body">
         <img src="{{ post.photo.url }}" alt="{{ post.caption }}" width="500px" height="500px" />
