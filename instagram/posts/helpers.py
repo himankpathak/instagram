@@ -30,7 +30,7 @@ def get_posts(user=None, wall=False):
                         to_attr='liker'
                     )) \
                 .filter(author__in=users) \
-                .order_by('date_created')
+                .order_by('-date_created')
 
     for post in posts:
         post.liker = [liker.user for liker in post.liker]
