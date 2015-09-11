@@ -12,20 +12,13 @@ A Instagram clone made with django framework.
 
 #Installation
 
-make a virtual enviroment
-
     // assuming you've already install virtualenvwrapper
     mkvirtualenv --python=`which python3` instagram
-
-clone the repository
-
-    git clone https://github.com/benigls/instagram.git
-    cd instagram
-    
-install dependencies
-
+    git clone https://github.com/benigls/instagram.git && cd instagram
     pip install -r requirements.txt
-
+    cd instagram
+    ./manage syncdb
+    ./manage runserver
 
 #Contributions
 
