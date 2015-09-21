@@ -114,7 +114,7 @@ MEDIA_ROOT = 'media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-if 'PRODUCTION' in os.environ:
+if os.getenv('PRODUCTION') is True:
     DEBUG = False
 
     import dj_database_url
