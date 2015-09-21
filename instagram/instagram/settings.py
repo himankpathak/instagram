@@ -27,6 +27,9 @@ LOGIN_URL = '/u/login/'
 LOGIN_REDIRECT_URL = '/u/login/'
 LOGOUT_URL = '/u/logout/'
 
+DEBUG = True
+
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -102,9 +105,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, '..', 'static'), ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+if 'PRODUCTION' in os.environ:
+    DEBUG = False
+
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
+
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    ALLOWED_HOSTS = ['.herokuapp.com']
+    STATIC_ROOT = 'staticfiles'
+else:
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
