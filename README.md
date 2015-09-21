@@ -5,10 +5,9 @@ A Instagram clone made with django framework.
 # Dependencies
 
 * Python 3.x
-* Django==1.8.4
+* Django==1.8
 * django-braces==1.8.1
 * django-crispy-forms==1.5.1
-* django-debug-toolbar==1.3.2
 
 #Installation
 
@@ -17,9 +16,8 @@ A Instagram clone made with django framework.
     git clone https://github.com/benigls/instagram.git && cd instagram
     pip install -r requirements/developement.txt
     cd instagram
-    ./manage syncdb --settings=instagram.settings.developement
-    ./manage runserver --settings=instagram.settings.developement
-
+    ./manage syncdb
+    ./manage runserver
 
 #Contributions
 
