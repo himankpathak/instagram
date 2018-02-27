@@ -14,7 +14,7 @@ A Instagram clone made with django framework.
     // assuming you've already install virtualenvwrapper
     mkvirtualenv --python=`which python3` instagram
     git clone https://github.com/benigls/instagram.git && cd instagram
-    pip install -r requirements/developement.txt
+    pip install -r requirements.txt
     cd instagram
     ./manage syncdb
     ./manage runserver
